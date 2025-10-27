@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CodeReady: Full-Stack Programming & System Design Bootcamp</title>
+<style>
+  @page { margin: 0; size: A4; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1a1a1a; background: white; }
+  .page { width: 210mm; min-height: 297mm; margin: 0 auto; background: white; page-break-after: always; position: relative; overflow: hidden; }
+
+  /* Cover Page */
+  .cover { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px; position: relative; }
+  .cover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="white" opacity="0.1"/></svg>'); background-size: 40px 40px; }
+  .cover-content { position: relative; z-index: 1; }
+  .logo { font-size: 48px; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
+  .tagline { font-size: 24px; font-weight: 300; margin-bottom: 60px; opacity: 0.95; }
+  .cover-title { font-size: 42px; font-weight: 700; margin-bottom: 30px; line-height: 1.2; }
+  .cover-subtitle { font-size: 22px; font-weight: 300; margin-bottom: 50px; opacity: 0.9; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; width: 100%; }
+  .stat-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); }
+  .stat-number { font-size: 48px; font-weight: 700; margin-bottom: 10px; }
+  .stat-label { font-size: 16px; opacity: 0.9; font-weight: 300; }
+
+  /* Content Pages */
+  .content-page { padding: 60px; }
+  .header { background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 30px 60px; margin: -60px -60px 40px -60px; }
+  .header h1 { font-size: 32px; font-weight: 700; }
+  .section-title { color: #1e3a8a; font-size: 28px; font-weight: 700; margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 3px solid #3b82f6; }
+  .section-subtitle { color: #3b82f6; font-size: 22px; font-weight: 600; margin: 30px 0 15px 0; }
+  .intro-text { font-size: 16px; line-height: 1.8; color: #4a4a4a; margin-bottom: 30px; }
+  .highlight-box { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid #3b82f6; padding: 25px; margin: 25px 0; border-radius: 8px; }
+  .highlight-box h3 { color: #1e3a1a; font-size: 20px; margin-bottom: 15px; }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 25px 0; }
+  .outcome-card { background: white; border: 2px solid #dbeafe; padding: 20px; border-radius: 8px; transition: transform 0.2s; }
+  .outcome-card:hover { transform: translateY(-2px); border-color: #3b82f6; }
+  .outcome-number { display: inline-block; background: #3b82f6; color: white; width: 32px; height: 32px; border-radius: 50%; text-align: center; line-height: 32px; font-weight: 700; margin-right: 12px; }
+  .outcome-text { font-size: 15px; color: #4a4a4a; line-height: 1.6; }
+
+  /* Tables */
+  .week-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 25px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+  .week-table thead { background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%); color: white; }
+  .week-table th { padding: 18px; text-align: left; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .week-table td { padding: 20px 18px; border-bottom: 1px solid #e5e7eb; font-size: 14px; vertical-align: top; }
+  .week-table tbody tr:nth-child(even) { background: #f9fafb; }
+  .week-table tbody tr:hover { background: #eff6ff; }
+  .week-label { font-weight: 700; color: #1e3a8a; font-size: 15px; }
+  .phase-badge { display: inline-block; background: #3b82f6; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: 8px; text-transform: uppercase; }
+  .topics-list { margin: 8px 0; line-height: 1.8; color: #4a4a4a; }
+  .topics-list strong { color: #1e3a8a; }
+
+  /* Project Cards */
+  .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 25px 0; }
+  .project-card { background: linear-gradient(135deg, #eff6ff 0%, white 100%); border: 2px solid #dbeafe; border-radius: 12px; padding: 25px; transition: all 0.3s; }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2); border-color: #3b82f6; }
+  .project-icon { font-size: 36px; margin-bottom: 15px; }
+  .project-title { color: #1e3a8a; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .project-desc { font-size: 14px; color: #4a4a4a; line-height: 1.6; }
+
+  /* Grading Section */
+  .grading-container { display: flex; gap: 30px; margin: 25px 0; }
+  .grade-box { flex: 1; background: white; border: 2px solid #dbeafe; border-radius: 12px; padding: 25px; text-align: center; }
+  .grade-percentage { font-size: 48px; font-weight: 700; color: #3b82f6; margin-bottom: 10px; }
+  .grade-label { color: #1e3a8a; font-weight: 600; font-size: 16px; margin-bottom: 15px; }
+  .grade-details { font-size: 13px; color: #6b7280; line-height: 1.6; }
+
+  /* Certificate */
+  .certificate { background: linear-gradient(135deg, #eff6ff 0%, white 100%); border: 8px solid #3b82f6; border-radius: 16px; padding: 50px; margin: 40px 0; text-align: center; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15); }
+  .certificate-title { color: #1e3a8a; font-size: 32px; font-weight: 700; margin-bottom: 30px; }
+  .certificate-text { font-size: 16px; line-height: 1.8; color: #4a4a4a; max-width: 600px; margin: 0 auto 30px auto; }
+  .certificate-tagline { color: #3b82f6; font-size: 18px; font-style: italic; font-weight: 600; }
+
+  /* Footer */
+  .footer { position: absolute; bottom: 30px; left: 60px; right: 60px; padding-top: 20px; border-top: 2px solid #e5e7eb; font-size: 12px; color: #6b7280; display: flex; justify-content: space-between; align-items: center; }
+  .page-number { font-weight: 600; color: #3b82f6; }
+
+  ul, ol { margin: 15px 0 15px 30px; line-height: 1.8; }
+  li { margin: 8px 0; color: #4a4a4a; }
+
+  /* TOC */
+  .toc { columns: 2; column-gap: 40px; }
+  .toc a { color: #1e3a8a; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  @media print { .page { margin: 0; box-shadow: none; } .project-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="page cover">
+  <div class="cover-content">
+    <div class="logo">CodeReady</div>
+    <div class="tagline">From Fundamentals to Scalability</div>
+    <div class="cover-title"> Full-Stack Programming &<br />System Design Bootcamp </div>
+    <div class="cover-subtitle"> Transform into an Industry-Ready Software Engineer in 14 Weeks </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-number">14</div><div class="stat-label">Weeks</div></div>
+      <div class="stat-box"><div class="stat-number">70</div><div class="stat-label">Teaching Hours</div></div>
+      <div class="stat-box"><div class="stat-number">2</div><div class="stat-label">Languages</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: TABLE OF CONTENTS -->
+<div class="page content-page">
+  <div class="header"><h1>Table of Contents</h1></div>
+  <div class="toc">
+    <ol>
+      <li><a href="#overview">Program Overview</a></li>
+      <li><a href="#phases">Learning Phases</a></li>
+      <li><a href="#outcomes">Learning Outcomes</a></li>
+      <li><a href="#weekly">Weekly Curriculum (Weeks 1–14)</a></li>
+      <li><a href="#projects">Capstone Projects</a></li>
+      <li><a href="#grading">Evaluation Rubric</a></li>
+      <li><a href="#titles">Program Title Ideas</a></li>
+      <li><a href="#certificate">Certificate</a></li>
+    </ol>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 2</span></div>
+</div>
+
+<!-- PAGE 3: OVERVIEW -->
+<div class="page content-page" id="overview">
+  <div class="header"><h1>Program Overview</h1></div>
+  <p class="intro-text">
+    <strong>CodeReady</strong> is a comprehensive 14-week technical training program designed for college students and early-career developers seeking to become industry-ready software engineers. This intensive bootcamp combines language-agnostic principles with hands-on practice in Java and Python, covering the full spectrum from programming fundamentals to scalable system design.
+  </p>
+  <div class="highlight-box">
+    <h3>🎯 Who Is This For?</h3>
+    <p><strong>Target Audience:</strong> College students, recent graduates, and early-career developers in India or the United States who want to accelerate their journey into professional software engineering.</p>
+    <p style="margin-top: 10px;"><strong>Prerequisites:</strong> Basic computer literacy and motivation to learn. No prior programming experience required.</p>
+  </div>
+
+  <div class="section-title" id="phases">Program Structure</div>
+  <div class="outcomes-grid">
+    <div class="outcome-card"><div><span class="outcome-number">70</span></div><div class="outcome-text"><strong>Live Instruction Hours</strong><br/>5 hours/week of expert-led sessions</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">70</span></div><div class="outcome-text"><strong>Self-Paced Practice</strong><br/>5 hours/week of assignments and challenges</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">2</span></div><div class="outcome-text"><strong>Programming Languages</strong><br/>Parallel instruction in Java & Python</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">6</span></div><div class="outcome-text"><strong>Learning Phases</strong><br/>From basics to system design & capstone</div></div>
+  </div>
+
+  <div class="section-title">Learning Phases</div>
+  <table class="week-table">
+    <thead><tr><th style="width:25%">Phase</th><th style="width:15%">Duration</th><th>Focus Areas</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#1e3a8a;">Phase 1</strong><br/>Programming 101</td><td>Weeks 1–3</td><td>Fundamentals, variables, control flow, loops, functions, OOP, exceptions, file I/O</td></tr>
+      <tr><td><strong style="color:#1e3a8a;">Phase 2</strong><br/>Data Structures</td><td>Weeks 4–6</td><td>Arrays, linked lists, stacks, queues, trees, graphs, hash tables, recursion</td></tr>
+      <tr><td><strong style="color:#1e3a8a;">Phase 3</strong><br/>Problem Solving</td><td>Weeks 7–9</td><td>30–40 easy/medium LeetCode-style questions, patterns & guided walkthroughs</td></tr>
+      <tr><td><strong style="color:#1e3a8a;">Phase 4</strong><br/>Databases</td><td>Weeks 10–11</td><td>MySQL fundamentals, joins, indexes, normalization, transactions; mini-project</td></tr>
+      <tr><td><strong style="color:#1e3a8a;">Phase 5</strong><br/>System Design</td><td>Weeks 12–13</td><td>Client–server, REST APIs, scalability, caching, load balancers, sharding, diagrams</td></tr>
+      <tr><td><strong style="color:#1e3a8a;">Phase 6</strong><br/>Capstone</td><td>Week 14</td><td>2–3 end‑to‑end mini‑apps combining API + DB + frontend concepts</td></tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 3</span></div>
+</div>
+
+<!-- PAGE 4: LEARNING OUTCOMES -->
+<div class="page content-page" id="outcomes">
+  <div class="header"><h1>Learning Outcomes</h1></div>
+  <p class="intro-text">By completing CodeReady, learners will demonstrate job-ready competence in dual-language programming, data structures & algorithms, database design, API development, and scalable systems.</p>
+
+  <div class="section-title">What You'll Master</div>
+  <div class="outcomes-grid">
+    <div class="outcome-card"><div><span class="outcome-number">1</span></div><div class="outcome-text"><strong>Dual-Language Proficiency</strong><br/>Write robust code in Java and Python with idiomatic patterns</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">2</span></div><div class="outcome-text"><strong>Data Structures & Algorithms</strong><br/>Implement arrays, trees, graphs, heaps and analyze complexity</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">3</span></div><div class="outcome-text"><strong>Problem-Solving Patterns</strong><br/>Two pointers, sliding window, recursion, DP, graph algorithms</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">4</span></div><div class="outcome-text"><strong>Database Design & SQL</strong><br/>Normalized schemas, joins, indexing, transactions & isolation</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">5</span></div><div class="outcome-text"><strong>RESTful API Development</strong><br/>HTTP methods, stateless design, caching, pagination, auth basics</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">6</span></div><div class="outcome-text"><strong>Scalable Architecture</strong><br/>Load balancing, sharding, CAP, trade‑off analysis & diagrams</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">7</span></div><div class="outcome-text"><strong>End‑to‑End Delivery</strong><br/>Integrate backend + DB + a simple frontend; write clean docs</div></div>
+    <div class="outcome-card"><div><span class="outcome-number">8</span></div><div class="outcome-text"><strong>Interview Readiness</strong><br/>Explain decisions, walk through DSA, and whiteboard designs</div></div>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 4</span></div>
+</div>
+
+<!-- PAGE 5: WEEKS 1–6 (from your draft, compact) -->
+<div class="page content-page" id="weekly">
+  <div class="header"><h1>Weekly Curriculum</h1></div>
+  <p class="intro-text">Each week has five 1‑hour live sessions (Day 1 → Day 5) with weekly assignments, quizzes, and optional stretch goals. Java & Python are taught in parallel.</p>
+
+  <div class="section-subtitle">Weeks 1–3: Programming 101</div>
+  <table class="week-table">
+    <thead><tr><th style="width:20%">Week</th><th>Topics & Activities</th><th style="width:30%">Outcomes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="week-label">Week 1<span class="phase-badge">Phase 1</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Variables, types, operators<br/>
+          <strong>Day 2:</strong> Control flow & boolean logic<br/>
+          <strong>Day 3:</strong> Loops & iteration patterns<br/>
+          <strong>Day 4:</strong> Functions/methods, scope & returns<br/>
+          <strong>Day 5:</strong> I/O & core collections (list/array/dict)
+          <div class="highlight-box"><strong>Assignment:</strong> CLI calculator (both languages). <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Write small programs with branching & repetition; compare Java vs Python syntax.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 2<span class="phase-badge">Phase 1</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> OOP basics (classes/objects)<br/>
+          <strong>Day 2:</strong> Encapsulation, inheritance, polymorphism<br/>
+          <strong>Day 3:</strong> Exceptions & error handling<br/>
+          <strong>Day 4:</strong> File I/O in Java & Python<br/>
+          <strong>Day 5:</strong> OOP workshop (build a mini library)
+          <div class="highlight-box"><strong>Assignment:</strong> Book Library class with save/load. <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Create reusable classes with robust error handling & persistence.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 3<span class="phase-badge">Phase 1</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Modular programming & packaging<br/>
+          <strong>Day 2:</strong> Complexity & Big‑O<br/>
+          <strong>Day 3:</strong> Debugging & unit testing (JUnit/pytest)<br/>
+          <strong>Day 4:</strong> Git/GitHub basics; PR etiquette<br/>
+          <strong>Day 5:</strong> Mini‑project: CLI To‑Do app (CRUD)
+          <div class="highlight-box"><strong>Assignment:</strong> To‑Do app with tests & README. <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Write modular, testable code; use Git & PR workflow.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-subtitle">Weeks 4–6: Data Structures</div>
+  <table class="week-table">
+    <thead><tr><th style="width:20%">Week</th><th>Topics & Activities</th><th style="width:30%">Outcomes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="week-label">Week 4<span class="phase-badge">Phase 2</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Arrays & lists<br/>
+          <strong>Day 2:</strong> Linked lists (SLL/DLL)<br/>
+          <strong>Day 3:</strong> Stacks (LIFO) & use‑cases<br/>
+          <strong>Day 4:</strong> Queues/Deque & variants<br/>
+          <strong>Day 5:</strong> Lab: implement DS in both languages
+          <div class="highlight-box"><strong>Assignment:</strong> Implement List/Stack/Queue APIs. <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Implement/practice DS ops; analyze complexities.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 5<span class="phase-badge">Phase 2</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Trees & recursion basics<br/>
+          <strong>Day 2:</strong> BST ops (insert/delete/search)<br/>
+          <strong>Day 3:</strong> Graphs & adjacency models<br/>
+          <strong>Day 4:</strong> Traversals: DFS/BFS<br/>
+          <strong>Day 5:</strong> Workshop: paths, levels, cycles
+          <div class="highlight-box"><strong>Assignment:</strong> BST + BFS on grid; README with Big‑O. <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Build tree/graph traversals and reason about performance.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 6<span class="phase-badge">Phase 2</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Hash tables (hashing, collisions)<br/>
+          <strong>Day 2:</strong> Heaps/PQs; heap sort<br/>
+          <strong>Day 3:</strong> Recursion deep‑dive<br/>
+          <strong>Day 4:</strong> Memory mgmt, GC concepts<br/>
+          <strong>Day 5:</strong> DS practice set (mixed)
+          <div class="highlight-box"><strong>Assignment:</strong> LRU Cache (hashmap+DLL). <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+        </td>
+        <td>Master advanced DS; prep for problem‑solving phase.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 5</span></div>
+</div>
+
+<!-- PAGE 6: WEEKS 7–9 PROBLEM SOLVING -->
+<div class="page content-page">
+  <div class="header"><h1>Weeks 7–9: Problem Solving (Phase 3)</h1></div>
+  <p class="intro-text">Focus on patterns and 30–40 easy/medium LeetCode‑style questions with guided walkthroughs. Daily flow: short lecture goals → key takeaways → real‑world analogy → hands‑on exercise → stretch → review.</p>
+
+  <table class="week-table">
+    <thead><tr><th style="width:20%">Week</th><th>Agenda & Assignments</th><th style="width:32%">Outcomes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="week-label">Week 7<span class="phase-badge">Phase 3</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Problem analysis & constraints; pattern library intro.<br/>
+          <em>Takeaway:</em> Clarify input, output, constraints, edge cases.<br/>
+          <em>Analogy:</em> Blueprint before building a house.<br/>
+          <em>Exercise:</em> Two‑sum variants in Java/Python.<br/>
+          <strong>Day 2:</strong> Two‑pointers; sorted arrays & string scans.<br/>
+          <strong>Day 3:</strong> Sliding window (fixed & variable).<br/>
+          <strong>Day 4:</strong> Sorting fundamentals; stability & when to use what.<br/>
+          <strong>Day 5:</strong> Review set (6–8 questions) + live walkthrough.
+          <div class="highlight-box"><strong>Assignment:</strong> 10 questions (2× two‑pointers, 4× sliding‑window, 4× sorting). <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+          <div><strong>Stretch:</strong> Longest substring without repeat; 3‑sum with two‑pointers.</div>
+        </td>
+        <td>Identify and apply patterns quickly; explain trade‑offs and Big‑O.
+        </td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 8<span class="phase-badge">Phase 3</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Recursion patterns & backtracking (subsets, permutations).<br/>
+          <strong>Day 2:</strong> Dynamic Programming I (memoization vs tabulation).<br/>
+          <strong>Day 3:</strong> DP II (knapsack, coin change, LIS ideas).<br/>
+          <strong>Day 4:</strong> Graph algorithms I (BFS shortest path, topo sort).<br/>
+          <strong>Day 5:</strong> Mock interview #1 (15‑min DSA + 10‑min feedback per student).
+          <div class="highlight-box"><strong>Assignment:</strong> 10 questions (3× recursion/backtracking, 5× DP, 2× graph BFS). <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+          <div><strong>Stretch:</strong> Word ladder (BFS), partition equal subset sum (DP).</div>
+        </td>
+        <td>Transition from brute force to optimal DP/graph solutions; practice interview cadence.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 9<span class="phase-badge">Phase 3</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Greedy techniques; exchange arguments & proofs of correctness (informal).<br/>
+          <strong>Day 2:</strong> Advanced graphs (Dijkstra intro; when BFS vs Dijkstra).<br/>
+          <strong>Day 3:</strong> Mixed set (hashing, heap, prefix sum).<br/>
+          <strong>Day 4:</strong> System‑aware problem solving (I/O limits, memory caps).<br/>
+          <strong>Day 5:</strong> Mock interview #2 + feedback & personalized plan.
+          <div class="highlight-box"><strong>Assignment:</strong> 10 questions (2× greedy, 3× heap, 3× hashing/prefix, 2× graph). <strong>Quiz:</strong> 10 MCQs + 1 coding.</div>
+          <div><strong>Stretch:</strong> Reconstruct itinerary (graph), task scheduler (heap+greedy).</div>
+        </td>
+        <td>Confidently pick the right pattern under time pressure; communicate clearly.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 6</span></div>
+</div>
+
+<!-- PAGE 7: WEEKS 10–11 DATABASES -->
+<div class="page content-page">
+  <div class="header"><h1>Weeks 10–11: Databases (Phase 4)</h1></div>
+  <p class="intro-text">Hands‑on MySQL fundamentals with normalization, joins, indexing, and transactions. Build a mini project with schema, queries, and simple reports.</p>
+
+  <table class="week-table">
+    <thead><tr><th style="width:20%">Week</th><th>Agenda & Assignments</th><th style="width:32%">Outcomes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="week-label">Week 10<span class="phase-badge">Phase 4</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Relational model, tables, PK/FK; ER → schema.<br/>
+          <strong>Day 2:</strong> Normalization (1NF–3NF); denormalization trade‑offs.<br/>
+          <strong>Day 3:</strong> SELECT, WHERE, ORDER BY, LIMIT; CRUD basics.<br/>
+          <strong>Day 4:</strong> Joins (INNER/LEFT/RIGHT/FULL), GROUP BY, HAVING.<br/>
+          <strong>Day 5:</strong> Lab: design a Course–Student–Enrollment schema.
+          <div class="highlight-box"><strong>Assignment:</strong> Create schema & seed data; 12 queries (mix of joins & groups). <strong>Quiz:</strong> 12 MCQs + 1 query.</div>
+          <div><strong>Analogy:</strong> Library cataloging for normalization; shelves vs index cards for indexes.</div>
+        </td>
+        <td>Design normalized schemas; write expressive queries with multiple joins & aggregates.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 11<span class="phase-badge">Phase 4</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Indexes & query plans; when indexes hurt/help.<br/>
+          <strong>Day 2:</strong> Transactions, ACID; isolation levels & anomalies.<br/>
+          <strong>Day 3:</strong> Stored routines & views (intro), pagination patterns.<br/>
+          <strong>Day 4:</strong> NoSQL overview (key‑value, document); when to choose which.<br/>
+          <strong>Day 5:</strong> Mini‑project: Analytics queries & simple dashboard export (CSV/JSON).
+          <div class="highlight-box"><strong>Assignment:</strong> Optimize queries (add/remove indexes), measure timings, document rationale. <strong>Quiz:</strong> 12 MCQs + 1 query.</div>
+          <div><strong>Stretch:</strong> Write a transaction demo showing phantom reads vs repeatable read.</div>
+        </td>
+        <td>Tune queries with indexes; reason about isolation/consistency; situate SQL vs NoSQL.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 7</span></div>
+</div>
+
+<!-- PAGE 8: WEEKS 12–13 SYSTEM DESIGN -->
+<div class="page content-page">
+  <div class="header"><h1>Weeks 12–13: System Design (Phase 5)</h1></div>
+  <p class="intro-text">Design small, scalable services with clear APIs, storage choices, caching, load balancing, and sharding. Emphasis on diagrams and trade‑offs.</p>
+
+  <table class="week-table">
+    <thead><tr><th style="width:20%">Week</th><th>Agenda & Assignments</th><th style="width:32%">Outcomes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="week-label">Week 12<span class="phase-badge">Phase 5</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Client‑server, REST, HTTP verbs, idempotency; API design (resources, pagination).<br/>
+          <strong>Day 2:</strong> Statelessness, session vs token auth (concepts); rate limiting basics.<br/>
+          <strong>Day 3:</strong> Caching (CDN, reverse proxy, app‑level); cache invalidation strategies.<br/>
+          <strong>Day 4:</strong> Load balancing (round‑robin, least‑conn); health checks; blue/green overview.<br/>
+          <strong>Day 5:</strong> Design exercise: URL Shortener (read‑heavy, cache, DB schema, API).
+          <div class="highlight-box"><strong>Assignment:</strong> Write a 2‑page design doc + simple API spec (OpenAPI snippet encouraged). <strong>Quiz:</strong> 12 MCQs.</div>
+          <div><strong>Analogy:</strong> Restaurant with host (LB), daily specials board (cache), menu (API spec).</div>
+        </td>
+        <td>Produce clear API designs; integrate LB and caching with rationale & diagrams.</td>
+      </tr>
+      <tr>
+        <td class="week-label">Week 13<span class="phase-badge">Phase 5</span></td>
+        <td class="topics-list">
+          <strong>Day 1:</strong> Databases at scale: replication vs sharding; read/write paths.<br/>
+          <strong>Day 2:</strong> Consistency models; CAP & PACELC intuition; queues for decoupling.<br/>
+          <strong>Day 3:</strong> Observability 101 (logs, metrics, traces) & SLOs; error budgets.
+          <strong>Day 4:</strong> Design exercise: News Feed/Timeline (fan‑out, denorm, caches).<br/>
+          <strong>Day 5:</strong> Mock system design interview + structured feedback rubric.
+          <div class="highlight-box"><strong>Assignment:</strong> 3‑page design doc with diagram and capacity estimates (QPS, storage). <strong>Quiz:</strong> 12 MCQs.</div>
+          <div><strong>Stretch:</strong> Add a queue + worker design for async processing; failure handling.</div>
+        </td>
+        <td>Explain trade‑offs (latency vs consistency); present designs crisply under interview format.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 8</span></div>
+</div>
+
+<!-- PAGE 9: WEEK 14 CAPSTONE -->
+<div class="page content-page" id="projects">
+  <div class="header"><h1>Week 14: Capstone (Phase 6)</h1></div>
+  <p class="intro-text">Build 2–3 small but complete applications that combine API + DB + a minimal frontend conceptually. Teams of 2–3; PR‑based workflow on GitHub.</p>
+
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-icon">📝</div>
+      <div class="project-title">1) Smart To‑Do with Analytics</div>
+      <div class="project-desc">REST API (CRUD tasks, labels), MySQL schema (users, tasks, events), basic dashboard (completed/overdue). Add pagination, search, and a caching layer for popular queries.</div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🛒</div>
+      <div class="project-title">2) E‑Commerce Lite</div>
+      <div class="project-desc">Catalog, cart, orders; inventory consistency; simple checkout flow. Discuss eventual consistency vs transactions; add rate limiting on checkout.</div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">💬</div>
+      <div class="project-title">3) Minimal Chat Service</div>
+      <div class="project-desc">User/channel models, message send/fetch APIs, pagination, and a cache for recent messages. Explore long‑polling vs polling trade‑offs.</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Collaboration & Workflow</h3>
+    <ul>
+      <li>Create a GitHub org repo; each feature via branch → PR → code review.</li>
+      <li>Design docs before code; update diagrams after changes.</li>
+      <li>Each student must contribute code, tests, docs, and at least 2 code reviews.</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Deliverables</h3>
+    <ul>
+      <li>Design doc (3–5 pages) with trade‑offs & capacity estimates.</li>
+      <li>API spec (OpenAPI/Swagger) and DB schema (ER + DDL).</li>
+      <li>Runnable instructions + seed SQL + sample requests (curl/postman).</li>
+      <li>Short demo video (≤5 min) walking through endpoints and DB.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 9</span></div>
+</div>
+
+<!-- PAGE 10: WEEKLY ASSIGNMENT & QUIZ TEMPLATE -->
+<div class="page content-page">
+  <div class="header"><h1>Weekly Assignment & Quiz Template</h1></div>
+  <p class="intro-text">Every day includes: goals → key takeaways → analogy → hands‑on exercise → optional stretch. Each week ends with an assignment and a short quiz.</p>
+
+  <div class="section-title">Daily Micro‑Structure (Used Across Weeks)</div>
+  <ul>
+    <li><strong>Lecture Goals:</strong> 2–3 bullet outcomes for the session.</li>
+    <li><strong>Key Takeaways:</strong> 3–5 crisp points to remember.</li>
+    <li><strong>Analogy/Case Study:</strong> Real‑world story to anchor the concept.</li>
+    <li><strong>Hands‑On:</strong> 20–25 min coding or SQL drill.</li>
+    <li><strong>Stretch:</strong> Optional challenge for fast movers.</li>
+  </ul>
+
+  <div class="section-title">Weekly Quiz</div>
+  <p class="intro-text">10–12 MCQs + 1 short coding/SQL item; closed‑book. Focus on applying concepts over memorization.</p>
+
+  <div class="section-title">Mock Interviews</div>
+  <ul>
+    <li><strong>Week 8:</strong> Mock DSA #1 (25 min each).</li>
+    <li><strong>Week 9:</strong> Mock DSA #2 with rubric & plan.</li>
+    <li><strong>Week 13:</strong> Mock System Design (30 min) with diagrams.</li>
+  </ul>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 10</span></div>
+</div>
+
+<!-- PAGE 11: EVALUATION RUBRIC -->
+<div class="page content-page" id="grading">
+  <div class="header"><h1>Evaluation Rubric</h1></div>
+  <div class="grading-container">
+    <div class="grade-box"><div class="grade-percentage">40%</div><div class="grade-label">Assignments</div><div class="grade-details">Code correctness, tests, readability, docs, PR quality.</div></div>
+    <div class="grade-box"><div class="grade-percentage">20%</div><div class="grade-label">Quizzes</div><div class="grade-details">Concept mastery via MCQs + short coding/SQL.</div></div>
+    <div class="grade-box"><div class="grade-percentage">40%</div><div class="grade-label">Projects</div><div class="grade-details">Design docs, implementation, demo, teamwork & reviews.</div></div>
+  </div>
+
+  <div class="section-title">Detailed Rubric (Per PR/Assignment)</div>
+  <ul>
+    <li><strong>Correctness (40%)</strong> – Passes tests; handles edges.</li>
+    <li><strong>Design (20%)</strong> – Cohesive APIs, clean abstractions, data modeling.</li>
+    <li><strong>Code Quality (20%)</strong> – Readability, naming, structure, comments.</li>
+    <li><strong>Testing (10%)</strong> – Unit tests (JUnit/pytest), coverage on core logic.</li>
+    <li><strong>Documentation (10%)</strong> – README, usage, trade‑offs, diagrams.</li>
+  </ul>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 11</span></div>
+</div>
+
+<!-- PAGE 12: PROGRAM TITLE IDEAS -->
+<div class="page content-page" id="titles">
+  <div class="header"><h1>Program Title Ideas</h1></div>
+  <ul>
+    <li><strong>CodeReady:</strong> From Basics to System Design in 14 Weeks</li>
+    <li><strong>Build & Scale:</strong> Java + Python Engineer Track</li>
+    <li><strong>DSA to Design:</strong> Industry‑Ready Engineer Bootcamp</li>
+    <li><strong>ScaleUp:</strong> Full‑Stack Foundations to Systems</li>
+    <li><strong>DualCore:</strong> Java & Python Engineer Journey</li>
+    <li><strong>LaunchPad:</strong> From Fundamentals to First Offer</li>
+  </ul>
+
+  <div class="section-title">Career Readiness</div>
+  <div class="highlight-box">
+    <h3>📈 Outcomes</h3>
+    <ul>
+      <li>Clear entry‑level interviews with confident explanations.</li>
+      <li>Contribute to production codebases & review PRs effectively.</li>
+      <li>Design and reason about small scalable services.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 12</span></div>
+</div>
+
+<!-- PAGE 13: CERTIFICATE -->
+<div class="page content-page" id="certificate">
+  <div class="header"><h1>Certificate</h1></div>
+  <div class="certificate">
+    <div class="certificate-title">Certificate of Achievement</div>
+    <div class="certificate-text">
+      This certifies that <strong>[Student Name]</strong> has successfully completed the <em>CodeReady: Full‑Stack Programming & System Design Bootcamp</em>, demonstrating proficiency in Java & Python programming, data structures and algorithms, database design, REST API development, and scalable system design.
+    </div>
+    <div class="certificate-tagline">"From Fundamentals to Scalability"</div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Completion Criteria</h3>
+    <ul>
+      <li>Overall score ≥ 70% (Assignments 40%, Quizzes 20%, Projects 40%).</li>
+      <li>All capstone deliverables submitted with passing demo.</li>
+      <li>Active participation in at least 2 mock interviews.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 13</span></div>
+</div>
+
+<!-- PAGE 14: APPENDIX – WEEK‑BY‑WEEK QUICK INDEX (D1→D5) -->
+<div class="page content-page">
+  <div class="header"><h1>Appendix: Week‑by‑Week Quick Index</h1></div>
+  <table class="week-table">
+    <thead><tr><th>Week</th><th>Day 1</th><th>Day 2</th><th>Day 3</th><th>Day 4</th><th>Day 5</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Variables/Types</td><td>Control Flow</td><td>Loops</td><td>Functions</td><td>I/O + Collections</td></tr>
+      <tr><td>2</td><td>OOP Basics</td><td>OOP Principles</td><td>Exceptions</td><td>File I/O</td><td>OOP Lab</td></tr>
+      <tr><td>3</td><td>Modules</td><td>Big‑O</td><td>Testing</td><td>Git/PR</td><td>To‑Do App</td></tr>
+      <tr><td>4</td><td>Arrays</td><td>Linked Lists</td><td>Stacks</td><td>Queues</td><td>DS Lab</td></tr>
+      <tr><td>5</td><td>Trees</td><td>BST</td><td>Graphs</td><td>DFS/BFS</td><td>Workshop</td></tr>
+      <tr><td>6</td><td>Hash Tables</td><td>Heaps</td><td>Recursion</td><td>Memory/GC</td><td>Practice</td></tr>
+      <tr><td>7</td><td>Analysis</td><td>Two Pointers</td><td>Sliding Window</td><td>Sorting</td><td>Review</td></tr>
+      <tr><td>8</td><td>Backtracking</td><td>DP I</td><td>DP II</td><td>Graphs I</td><td>Mock DSA #1</td></tr>
+      <tr><td>9</td><td>Greedy</td><td>Dijkstra</td><td>Mixed Set</td><td>System‑aware</td><td>Mock DSA #2</td></tr>
+      <tr><td>10</td><td>ER→Schema</td><td>Normalization</td><td>CRUD SQL</td><td>Joins/Agg</td><td>DB Lab</td></tr>
+      <tr><td>11</td><td>Indexes</td><td>Transactions</td><td>Views/Routines</td><td>NoSQL</td><td>Mini‑Proj</td></tr>
+      <tr><td>12</td><td>REST/API</td><td>Auth & Rate Limit</td><td>Caching</td><td>Load Balancing</td><td>URL Shortener</td></tr>
+      <tr><td>13</td><td>Sharding/Replica</td><td>Consistency/CAP</td><td>Observability</td><td>News Feed</td><td>Mock SD</td></tr>
+      <tr><td>14</td><td colspan="5">Capstone: 2–3 Mini Apps (API + DB + Frontend concepts) & Demo</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <h3>Printing Tips</h3>
+    <ul>
+      <li>Use browser “Print → Save as PDF”. Paper size: A4. Margins: None.</li>
+      <li>This layout inserts page breaks automatically via <code>.page</code> blocks.</li>
+      <li>For dark printers, consider grayscale for improved readability.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>CodeReady Bootcamp © 2025</span><span class="page-number">Page 14</span></div>
+</div>
+
+</body>
+</html>
